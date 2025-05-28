@@ -1,0 +1,60 @@
+scrape_listing_urls:
+  description: >
+    Scrape product listings from eBay based on the provided keyword or store/search page URL in {input}.
+    Extract and return a clean list of product URLs, prices, and titles.
+    Ensure the URLs are unique.
+  expected_output: >
+    A JSON array of unique eBay product URLs, each including:
+    - url
+    - title
+    - price
+  agent: listing_collector_agent
+
+scrape_product_details:
+  name: scrape_product_details
+  description: >
+    You will receive a list of eBay product URLs.
+    For each URL, use the available tool to extract full product details, including:
+    - Title
+    - Price
+    - Description (even if loaded via iframe)
+    - Specifications (as key-value pairs)
+
+    Just use the tool for each URL. Do not manually parse HTML.
+  expected_output: >
+    A JSON array where each product includes:
+    - title
+    - price
+    - description
+    - specs
+    - url
+  agent: product_scraper_agent
+
+rewrite_seo_listings:
+  name: rewrite_seo_listings
+  description: >
+    Rewrite each scraped product listing into a persuasive, SEO-optimized format.
+    Use the SEO template provided in your knowledge or embedded below as a reference.
+
+    The output must be attractive, well-structured, and ready for publishing on eCommerce platforms.
+  expected_output: >
+    A list of rewritten product listings in JSON format. Each must include:
+    - rewritten_title
+    - rewritten_description
+    - original_url
+
+    ### SEO Product Listing Template
+
+    **Title**: Use max 80 characters. Include brand, key feature, product type, and model.
+
+    **Description**:
+    - Start with 1–2 punchy benefit-driven lines.
+    - Include key specs as bullet points.
+    - Close with shipping, return, or trust-building info.
+
+    **SEO Rules**:
+    - Include 2–3 high-value keywords
+    - Use short, engaging paragraphs
+    - Match tone to target audience
+  agent: seo_rewriter_agent
+  
