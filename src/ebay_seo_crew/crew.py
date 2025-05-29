@@ -64,7 +64,7 @@ class EbaySeoCrew:
         return Task(
             config=self.tasks_config["scrape_product_details"],
             agent=self.product_scraper_agent(),
-            output_file="output/product_details.json",
+            # output_file="output/product_details.json",
         )
 
     @task
@@ -72,8 +72,8 @@ class EbaySeoCrew:
         return Task(
             config=self.tasks_config["rewrite_seo_listings"],
             agent=self.seo_rewriter_agent(),
-            output_file="output/seo_rewritten_listings.json",
-            output_format="json"
+            output_file="output/seo_rewritten_listings.md",
+            output_format="markdown"
         )
 
     @crew
@@ -89,6 +89,6 @@ class EbaySeoCrew:
                 self.scrape_product_details_task(),
                 self.rewrite_listings_task()
             ],
-            output_file="output/crew_output.json",
+            memory=True,
             verbose=True
         )

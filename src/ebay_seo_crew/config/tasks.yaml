@@ -38,7 +38,7 @@ rewrite_seo_listings:
 
     The output must be attractive, well-structured, and ready for publishing on eCommerce platforms.
   expected_output: >
-    A list of rewritten product listings in JSON format. Each must include:
+    A list of rewritten product listings in Markdown format. Each must include:
     - rewritten_title
     - rewritten_description
     - original_url
@@ -56,5 +56,7 @@ rewrite_seo_listings:
     - Include 2–3 high-value keywords
     - Use short, engaging paragraphs
     - Match tone to target audience
+    ⚠️ Do NOT wrap the output in triple backticks or code blocks.
   agent: seo_rewriter_agent
+  markdown: true
   
