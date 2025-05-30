@@ -7,6 +7,9 @@ from datetime import datetime
 from typing import Type
 from pydantic import BaseModel, Field
 from crewai.tools import BaseTool
+from colorama import init, Fore, Style
+
+init(autoreset=True)
 
 HEADERS = {
     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)",
@@ -24,13 +27,12 @@ def get_listings_from_page(url: str, max_pages: int = 1):
 
     for page in range(1, max_pages + 1):
         paged_url = f"{url}&_pgn={page}"
-        print(f"Scraping page {page}: {paged_url}")
 
         try:
             response = requests.get(paged_url, headers=HEADERS)
             response.raise_for_status()
         except requests.RequestException as e:
-            print(f"Request failed: {e}")
+            print(f"{Fore.RED}❌ Request failed: {e}")
             continue
 
         soup = BeautifulSoup(response.text, "html.parser")
@@ -41,7 +43,7 @@ def get_listings_from_page(url: str, max_pages: int = 1):
             if first_link:
                 first_url = normalize_url(first_link["href"])
                 if first_url in seen_urls:
-                    print(f"First item URL on page {page} already seen, stopping scrape.")
+                    print(f"{Fore.YELLOW}⚠️ First item on page already seen. Ending pagination.")
                     break
                 seen_urls.add(first_url)
 
@@ -63,7 +65,7 @@ def get_listings_from_page(url: str, max_pages: int = 1):
 
         time.sleep(1)
 
-    # return all_items[:30]
+    print(f"\n{Fore.GREEN}✅ Total product URLs gathered: {len(all_items)}\n")
     return all_items[:2]
 
 
@@ -79,19 +81,12 @@ class EbayListingCollectorTool(BaseTool):
     args_schema: Type[BaseModel] = EbayListingCollectorInput
 
     def _run(self, query: str) -> str:
-        
-        print(f"🔍 Collecting eBay listings for query: {query}")
         base_url = query if query.startswith("http") else f"https://www.ebay.com/sch/i.html?_nkw={query}"
         listings = get_listings_from_page(base_url, max_pages=3)
-        if not listings:
-            print("⚠️ No listings found.")
-            return json.dumps([])
-        
-        # Optional: Save locally
+
         os.makedirs("output", exist_ok=True)
         timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
         with open(f"output/store_items_{timestamp}.json", "w", encoding="utf-8") as f:
             json.dump(listings, f, indent=2)
-            
-        print(f"✅ Saved {len(listings)} listings to output/store_items_{timestamp}.json")
+
         return json.dumps(listings, indent=2)

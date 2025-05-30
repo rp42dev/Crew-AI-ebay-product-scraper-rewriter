@@ -1,0 +1,37 @@
+rewrite_seo_listings:
+  name: rewrite_seo_listings
+  description: >
+    Rewrite the following eBay product listing using SEO best practices.
+
+    Title: {title}
+    Price: {price}
+    Description: {description}
+    Specs: {specs}
+    URL: {url}
+
+    Follow the SEO Product Listing Template below:
+
+    ### SEO Product Listing Template
+
+    **Product Title**: Use max 80 characters. [Brand] [Key Feature] [Product Type] [Model/Version] - [USP]
+
+    **Description**:
+    - 1–2 punchy benefit-driven lines.
+    - Bullet list of key specs.
+    - End with shipping, return, or trust-building info.
+
+    **SEO Rules**:
+    - Use 2–3 high-value keywords
+    - Short, engaging paragraphs
+    - Match tone to the target audience
+
+    ⚠️ Do NOT wrap output in triple backticks or code blocks.
+
+  expected_output: >
+    - rewritten_title
+    - rewritten_description
+    - seo_keywords
+    - original_url
+
+  agent: seo_rewriter_agent
+  markdown: true
