@@ -96,7 +96,7 @@ pip install -r requirements.txt
 ```
 
 ## 📄 License
-This project is licensed under the MIT License. See the
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.	
 
 ## 📧 Contact
-For questions or contributions, please open an issue on GitHub or contact the project maintainer.
+For questions or contributions, please open an issue on GitHub.
