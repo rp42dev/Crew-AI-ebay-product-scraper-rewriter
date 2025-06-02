@@ -71,11 +71,10 @@ class EbaySeoPipeline(Flow):
         print("📊 Token usage:")
         print(df_usage_metrics.to_string(index=False))
         print(f"💰 Total costs: ${costs:.4f}")
-
         return results
 
 if __name__ == "__main__":
     user_query = input("🔎 Enter eBay search term or store URL: ").strip()
     flow = EbaySeoPipeline(query=user_query)
     flow.kickoff()
-
+    flow.plot()

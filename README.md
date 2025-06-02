@@ -1,96 +1,102 @@
-# CrewAI eBay Product Scraper + SEO Rewriter
+# 🚀 CrewAI eBay Product Scraper + SEO Rewriter
 
-[Watch the video on Facebook](https://www.facebook.com/61571514151327/videos/706298025685350/)
+🎥 [Watch Demo on Facebook](https://www.facebook.com/61571514151327/videos/706298025685350/)
 
-This is an AI-powered, multi-agent system built with CrewAI that automates scraping eBay listings and rewriting them for SEO optimization — all with zero manual input.
+This project is a multi-agent system powered by [CrewAI](https://github.com/joaomdmoura/crewai) to collect eBay product listings and rewrite them using SEO best practices.
 
-🚀 Whether you provide an eBay store URL or just a search keyword, this system will:
- - Scrape product listings in bulk
- - Extract detailed product info (title, price, description, specs)
- - Rewrite each listing using SEO best practices via a custom template
+---
 
-## 🧠 Powered By
- - CrewAI
- - Custom tools (Selenium, BeautifulSoup)
- - Built-in knowledge injection (seo_template.md)
- - Modular YAML-based agent/task config
+## 🧩 Project Versions
 
-## 📁 Project Structure
+### ✅ `v2/` — **Current Lightweight Version**
+- 🧠 Uses **just one agent**: SEO rewriter
+- ⚙️ Scraping logic is hardcoded outside of the LLM agent to save costs
+- 💡 **Optimized for minimum OpenAI token usage**
+- 🔄 Runs in sequence but can be extended for parallelism
+- 📂 Uses Pydantic for structured product input
+- 🔍 Ideal for fast bulk SEO rewrite with minimal overhead
+
+### 🗃️ `v1/` — **Legacy 3-Agent Version**
+- 🤖 Agents for scraping URLs, scraping product data, and rewriting
+- 🔁 Fully autonomous but **uses more LLM tokens**
+- 🧠 Good for demonstrating multi-agent orchestration
+- ❌ Less efficient for large-scale batch runs
+
+---
+
+### 📁 Folder Structure
 
 ```bash
-src/
-└── ebay_seo_crew/
-    ├── tools/
-    │   ├── ebay_listing_collector.py     # Scrape search/store 
-    │   ├── product_scraper_tool.py       # Extract product 
-    │   └── output/                       # Saved CSV/JSON output
-    ├── config/
-    │   ├── agents.yaml                   # Agent definitions
-    │   └── tasks.yaml                    # Task definitions
-    ├── crew.py                           # CrewAI configuration
-    ├── main.py                           # Entry point
-    └── knowledge/
-        └── seo_template.md               # SEO rewriting template
+.
+├── v1/                       
+│   ├── crew.py
+│   └── main.py
+├── v2/                        
+│   ├── crew.py
+│   ├── main.py            
+│   ├── models/
+│   │   └── products.py
+│   └── tools/
+│       ├── ebay_listing_collector.py
+│       └── product_scraper_tool.py
+├── config/
+│   ├── agents.yaml
+│   └── tasks.yaml
+└── knowledge/
+    └── seo_template.md
 ```
+### 📝 How It Works
+#### Step-by-step (v2):
+ 1. Accepts a keyword or eBay store URL as input
+ 2. Scrapes the listings and product details (done outside LLM agent)
+ 3. Feeds each product to the SEO Rewriter agent
+ 4. Outputs Markdown-formatted SEO listings
 
-## 🎭 Agents
-| Agent ID                  | Role                   | What It Does                                                    |
-| ------------------------- | ---------------------- | --------------------------------------------------------------- |
-| `listing_collector_agent` | eBay Search Miner      | Scrapes a list of product URLs from search keyword or URL       |
-| `product_scraper_agent`   | Product Data Extractor | Gathers title, price, description, and specs from product pages |
-| `seo_rewriter_agent`      | SEO Copywriter         | Rewrites listings using the provided SEO template               |
-
-
-## 📋 Tasks Overview
-| Task                     | Input                     | Output                                 |
-| ------------------------ | ------------------------- | -------------------------------------- |
-| `scrape_listing_urls`    | eBay store URL or keyword | List of product URLs                   |
-| `scrape_product_details` | Product URLs              | Full product data (title, specs, etc.) |
-| `rewrite_seo_listings`   | Raw product info          | SEO-optimized rewritten listings       |
-
-
-## 🚀 Execution Flow
-```mermaid	
-flowchart TD
-    A[User Input: search term or store URL]
-    --> B[🔍 listing_collector_agent: find URLs]
-    --> C[📦 product_scraper_agent: extract details]
-    --> D[✍️ seo_rewriter_agent: SEO rewrite]
-    --> E[💾 Save to CSV / Markdown / JSON]
-```
-
-## 🛠️ Requirements
 ```bash
+cd v2
+python main.py
+```
+## 📦 Output
+
+- ✅ **Markdown**: `output/seo_rewritten_listings.md`
+- ✅ **JSON**: Scraped product listing data for reuse or debugging
+
+---
+
+## 💰 Efficiency Comparison
+
+| Version | Agents | LLM Usage | Speed   | Best For               |
+|---------|--------|-----------|---------|------------------------|
+| `v1`    | 3      | High ❌    | Medium  | Demos, experimentation |
+| `v2`    | 1      | Low ✅     | Fast ✅ | Bulk SEO rewriting     |
+
+---
+
+## 🔥 SEO Template
+
+See [`knowledge/seo_template.md`](knowledge/seo_template.md) for full SEO structure.
+
+**Title**:  
+`[Brand] [Feature] [Product Type] [Model]`
+
+**Description**:
+- 1–2 punchy benefit-driven lines  
+- Bullet list of key specs  
+- Close with shipping, return, or trust-building info
+
+**SEO Rules**:
+- Include 2–3 high-value keywords  
+- Use short, engaging paragraphs  
+- Match tone to the target audience
+
+## 📝 Requirements
+
+```bash	
 pip install -r requirements.txt
 ```
 
-## 📝 Configuration
-Edit `src/ebay_seo_crew/config/agents.yaml` and `src/ebay_seo_crew/config/tasks.yaml` to configure agents and tasks.
-
-## 🚀 Running the Crew
-To run the multi-agent system, use the following command:
-
-```bash
-python src/ebay_seo_crew/main.py
-```
-✅ You'll be prompted to enter:
- - A keyword (e.g., bike helmet)
- - Or an eBay store URL
-
-The system will handle the rest, from scraping to rewriting.
-
-## 📂 Output
-```swift
-src/ebay_seo_crew/tools/output/
-```
- - Raw scraped listings: store_items_<timestamp>.csv
- - Rewritten SEO listings: seo_rewritten_listings.md
-
-## 🔥 SEO Rewriting Guide
-For details on how the SEO rewriting is structured, refer to `src/ebay_seo_crew/knowledge/seo_template.md`. This file contains a comprehensive guide on best practices for eCommerce SEO.
-
 ## 📄 License
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+This project is licensed under the MIT License. See the
 
-## 📞 Contact
-For any questions or contributions, please open an issue on the [GitHub repository](https://github.com/rp42dev/Crew-AI-ebay-product-scraper-rewriter.git) or contact the project me.
+## 📧 Contact
+For questions or contributions, please open an issue on GitHub or contact the project maintainer.

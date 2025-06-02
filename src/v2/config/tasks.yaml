@@ -1,0 +1,61 @@
+rewrite_seo_listings:
+  name: rewrite_seo_listings
+  description: >
+    Rewrite the following eBay product listing using advanced SEO techniques. Ensure consistency and readability across all listings.
+
+    Input Data:
+    - Title: {title}
+    - Price: {price}
+    - Description: {description}
+    - Specs: {specs}
+    - URL: {url}
+
+    Follow the template strictly below.
+
+    ### 🔥 SEO Product Listing Template
+
+    **SEO Product Title**:
+    - Use max **80 characters**
+    - Format: [Primary Keyword] [Key Feature] [Brand] [Product Type]
+    - Example: "Wireless Earbuds with Noise Cancellation - Brand X - Bluetooth Headphones"
+
+    **Description**:
+    - Start with **1–2 benefit-driven sentences**
+    - Use **exactly 3 bullet points** to highlight key specs or features
+    - End with a short, trust-building statement (e.g., shipping, returns, satisfaction)
+    - Use a warm, persuasive tone suitable for ecommerce
+
+    **SEO Rules**:
+    - Embed **2–3 high-value keywords** naturally
+    - Keep paragraphs short and easy to skim
+    - Never sound robotic – make it friendly and marketable
+
+    ⚠️ STRICT: Output MUST NOT be inside code blocks or triple backticks.
+
+  expected_output: >
+    Return a markdown-formatted product listing with the following fields and format below:
+
+    # TITLE (80 characters max) [Primary Keyword, Key Feature, Brand(if applicable), Product Type]
+
+    DESCRIPTION (30–50 words. Write in a natural, friendly tone. Focus on benefits and include one bold phrase — usually the product name. End with a clear call to action.)
+
+    ### **Price**: **£XX.XX**  
+
+    ### **Key Specs**:  
+    - **SPEC_1_TITLE** – short benefit (2–8 words)  
+    - **SPEC_2_TITLE** – short benefit (2–8 words)  
+    - **SPEC_3_TITLE** – short benefit (2–8 words)
+    - **SPEC_4_TITLE** – short benefit (2–8 words)
+    - **SPEC_5_TITLE** – short benefit (2–8 words)
+
+    ### **SEO Keywords**:  
+    - KEYWORD_1 (2–4 words, high intent)  
+    - KEYWORD_2 (2–4 words, high intent)  
+    - KEYWORD_3 (optional)  
+
+    CLOSING LINE (10–20 words. Reinforce trust, quality, shipping, or support.)
+
+    **Original URL**: {url}
+
+  agent: seo_rewriter_agent
+  markdown: true

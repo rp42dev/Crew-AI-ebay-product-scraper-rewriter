@@ -37,12 +37,8 @@ class EbaySeoCrew:
     @crew
     def crew(self) -> Crew:
         return Crew(
-            agents=[
-                self.seo_rewriter_agent()
-            ],
-            tasks=[
-                self.rewrite_listings_task()
-            ],
+            agents=self.agents,
+            tasks=self.tasks,
             memory=False,
             verbose=True
         )

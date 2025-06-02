@@ -66,7 +66,7 @@ def get_listings_from_page(url: str, max_pages: int = 1):
         time.sleep(1)
 
     print(f"\n{Fore.GREEN}✅ Total product URLs gathered: {len(all_items)}\n")
-    return all_items[:2]
+    return all_items[:20] # Limit to 20 items
 
 
 class EbayListingCollectorInput(BaseModel):
