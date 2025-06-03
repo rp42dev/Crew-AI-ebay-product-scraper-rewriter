@@ -39,7 +39,7 @@ class EbaySeoCrew:
         return Crew(
             agents=self.agents,
             tasks=self.tasks,
-            memory=False,
+            memory=True,
             verbose=True
         )
 

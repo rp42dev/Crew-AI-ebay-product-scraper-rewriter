@@ -46,6 +46,7 @@ This project is a multi-agent system powered by [CrewAI](https://github.com/joao
     └── seo_template.md
 ```
 ### 📝 How It Works
+
 #### Step-by-step (v2):
  1. Accepts a keyword or eBay store URL as input
  2. Scrapes the listings and product details (done outside LLM agent)

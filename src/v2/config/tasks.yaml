@@ -1,7 +1,7 @@
 rewrite_seo_listings:
   name: rewrite_seo_listings
   description: >
-    Rewrite the following eBay product listing using advanced SEO techniques. Ensure consistency and readability across all listings.
+    Rewrite the following eBay product listing using advanced SEO techniques. Ensure consistency, keyword optimization, and readability across all listings.
 
     Input Data:
     - Title: {title}
@@ -9,8 +9,9 @@ rewrite_seo_listings:
     - Description: {description}
     - Specs: {specs}
     - URL: {url}
+    - Keywords: [keyword_1, keyword_2, keyword_3] (Optional)
 
-    Follow the template strictly below.
+    Follow the structure strictly below.
 
     ### 🔥 SEO Product Listing Template
 
@@ -19,41 +20,66 @@ rewrite_seo_listings:
     - Format: [Primary Keyword] [Key Feature] [Brand] [Product Type]
     - Example: "Wireless Earbuds with Noise Cancellation - Brand X - Bluetooth Headphones"
 
-    **Description**:
-    - Start with **1–2 benefit-driven sentences**
-    - Use **exactly 3 bullet points** to highlight key specs or features
-    - End with a short, trust-building statement (e.g., shipping, returns, satisfaction)
-    - Use a warm, persuasive tone suitable for ecommerce
+    **Meta Title** (Optional for other platforms):
+    - Format: [Primary Keyword] – [Key Feature] | Buy Online
+
+    **Meta Description** (Optional for other platforms):
+    - Format: Shop [Product Name] with [Key Feature]. Fast shipping. Trusted seller. Great value.
+
+    **SEO Product Description**:
+    - Start with 1–2 benefit-driven sentences
+    - Use **exactly 5 bullet points** to highlight top features or specs
+    - Use a warm, persuasive tone suitable for eCommerce
+    - End with a short, trust-building call to action (shipping, support, satisfaction)
 
     **SEO Rules**:
-    - Embed **2–3 high-value keywords** naturally
-    - Keep paragraphs short and easy to skim
-    - Never sound robotic – make it friendly and marketable
+    - Embed **2–3 high-intent keywords** naturally in title + description
+    - Keep description under **50 words / 400 characters max**
+    - Use short paragraphs for easy reading
+    - Write in a **natural, friendly tone** – never robotic or keyword-stuffed
 
     ⚠️ STRICT: Output MUST NOT be inside code blocks or triple backticks.
+    If no Brand is provided or is (Unbranded), omit it from the title. If no keywords are provided, use the primary keyword only.
 
   expected_output: >
-    Return a markdown-formatted product listing with the following fields and format below:
+    Return a markdown-formatted product listing with the following structure:
 
-    # TITLE (80 characters max) [Primary Keyword, Key Feature, Brand(if applicable), Product Type]
+    # TITLE (80 characters max)  
+    [Primary Keyword, Key Feature, Brand (if applicable), Product Type]
 
-    DESCRIPTION (30–50 words. Write in a natural, friendly tone. Focus on benefits and include one bold phrase — usually the product name. End with a clear call to action.)
+    ## **Subtitle**:  
+    [Optional short line highlighting a secondary feature or bonus benefit]
+
+    **SEO Product Description**:  
+    (30–50 words / max 400 characters. Start with benefits. Include one **bold phrase** – usually the product name. End with a call to action.)
 
     ### **Price**: **£XX.XX**  
 
     ### **Key Specs**:  
-    - **SPEC_1_TITLE** – short benefit (2–8 words)  
-    - **SPEC_2_TITLE** – short benefit (2–8 words)  
-    - **SPEC_3_TITLE** – short benefit (2–8 words)
-    - **SPEC_4_TITLE** – short benefit (2–8 words)
-    - **SPEC_5_TITLE** – short benefit (2–8 words)
+    - **[Feature 1 Title]** – [Short benefit with keyword]  
+    - **[Feature 2 Title]** – [Short benefit with keyword]  
+    - **[Feature 3 Title]** – [Short benefit with keyword]  
+    - **[Feature 4 Title]** – [Short benefit with keyword]  
+    - **[Feature 5 Title]** – [Short benefit with keyword]  
 
-    ### **SEO Keywords**:  
-    - KEYWORD_1 (2–4 words, high intent)  
-    - KEYWORD_2 (2–4 words, high intent)  
-    - KEYWORD_3 (optional)  
+    [CLOSING LINE – 10–20 words. Reinforce trust, shipping, return policy, or support.]
+    
+    ---
 
-    CLOSING LINE (10–20 words. Reinforce trust, quality, shipping, or support.)
+    ### **SEO Information**:
+
+    **Primary Keyword**: [Primary keyword]
+
+    **SEO Keywords**:  
+    - [Keyword 1]  
+    - [Keyword 2]  
+    - [Keyword 3] (optional)
+    
+    **Meta Title**:  
+    [Meta title – max 60 characters, including primary keyword and key feature]
+
+    **Meta Description**:  
+    [Meta description – max 160 characters, including primary keyword and key feature]
 
     **Original URL**: {url}
 

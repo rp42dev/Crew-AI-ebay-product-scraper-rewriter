@@ -5,10 +5,23 @@ from tools.ebay_listing_collector import EbayListingCollectorTool
 from tools.product_scraper_tool import ProductScraperTool
 from datetime import datetime
 from crew import EbaySeoCrew
+from pydantic import BaseModel
 import os, json
 import pandas as pd
 
 from models.products import SEOProductInput, ProductListPayload
+
+class State(BaseModel):
+    success_flag: bool = False
+    message: str = ""
+
+def run_flow(query: str):
+    flow = EbaySeoPipeline(query=query)
+    try:
+        flow.kickoff()
+        return State(success_flag=True, message="Flow completed successfully.")
+    except Exception as e:
+        return State(success_flag=False, message=str(e))
 
 class EbaySeoPipeline(Flow):
     def __init__(self, query: str):
@@ -19,9 +32,9 @@ class EbaySeoPipeline(Flow):
     def collect_urls(self):
         collector = EbayListingCollectorTool()
         listings = json.loads(collector._run(query=self.query))
-
+    
         if not listings:
-            print("❌ No listings found.")
+            print("⚠️ No listings found. Please check your query or try a different one.")
             return []
 
         for i, l in enumerate(listings, 1):
@@ -77,4 +90,4 @@ if __name__ == "__main__":
     user_query = input("🔎 Enter eBay search term or store URL: ").strip()
     flow = EbaySeoPipeline(query=user_query)
     flow.kickoff()
-    flow.plot()
+    # flow.plot()
