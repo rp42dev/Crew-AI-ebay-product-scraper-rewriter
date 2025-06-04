@@ -38,6 +38,7 @@ def generate_sku(data):
         dept_code = "UN"
 
     def short_token(text):
+        text = text.replace("-", " ")  # Replace hyphens with spaces
         words = text.split()
         if len(words) < 2:
             words.append("X")

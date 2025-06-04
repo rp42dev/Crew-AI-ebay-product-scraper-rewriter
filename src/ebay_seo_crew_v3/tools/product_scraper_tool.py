@@ -8,7 +8,7 @@ from selenium.webdriver.chrome.options import Options
 from typing import Type
 from pydantic import BaseModel, Field
 from crewai.tools import BaseTool
-from colorama import init, Fore, Style
+from colorama import init, Fore
 
 init(autoreset=True)
 
@@ -36,7 +36,7 @@ class ProductScraperTool(BaseTool):
 
         try:
             driver.get(url)
-            time.sleep(3)
+            time.sleep(2)
             html = driver.page_source
         except Exception as e:
             print(f"{Fore.RED}❌ Failed to load page: {e}")

@@ -24,26 +24,39 @@ rewrite_seo_listings:
        - Max 100 characters.
        - Should entice the user to read further.
 
-    3. **Rewritten Description** (250–650 characters):
-       - Use **3 paragraphs max**, each 2–3 lines long.
+    3. **Rewritten Description** (The whole description Must be between 550–650 characters or 80 - 100 words):
        - **First paragraph**: Summary + main benefits.
        - **Second**: Key use cases and standout specs.
        - **Third (optional)**: Warranty, trust signals, or closing encouragement.
        - Use the main keyword and 2 related terms naturally.
        - Keep tone professional and persuasive, avoid robotic or generic language.
 
+       ➤ Format: [summary + benefits] [use cases + specs] [warranty + trust signals]
+
     4. **Key Specs**:
-       - 5 bullet points, each starting with a bold feature.
-       - Format: `- **Feature Name** – Short benefit or spec, include 1 keyword if possible`.
+       - A list of 5 key specs, each starting with a bold feature.
+       - Focus on benefits and unique selling points.
+
+       ➤  Format: [Feature Name] – [Benefit/Description]
 
     5. **All Specs**:
        - Plain dump of original product specs (dict or key-value format).
 
-    6. **SEO Metadata**:
-       - **SEO Keywords**: 2–3 highly relevant terms.
-       - **Original URL**: Must include link to the original eBay listing.
+    6. **SEO Keywords**: 2–3 highly relevant terms.
 
-    🚫 Do NOT wrap output in triple backticks or code blocks.
+    7. **SEO Title**: 60 characters max, includes main keyword and key benefit.
+         - Should be engaging and click-worthy.
+         - Format: [Main Keyword] – [Key Feature] | Buy Now
+
+    8. **SEO Description**: must be between 150 - 160 characters, summarizes the product with main keyword and key benefit.
+         - Should be concise and compelling.
+         - Format: Shop [Product Name] with [Key Feature]. Fast shipping. Trusted seller.
+
+    9. **Original URL**: {url} Must include link to the original eBay listing.
+
+      🚫 Do NOT wrap output in triple backticks or code blocks.
+      🚫 Do NOT include any additional text, explanations, or comments.or symbols.
+      🚫 Follow exactly and strictly the format
 
     ✨ Your goal is to make each listing easy to scan, engaging to read, and SEO-friendly.
 
@@ -56,6 +69,8 @@ rewrite_seo_listings:
       - key_specs: list[str]
       - all_specs: dict
       - seo_keywords: list[str]
+      - seo_title: str
+      - seo_description: str
       - original_url: str
 
   agent: seo_rewriter_agent

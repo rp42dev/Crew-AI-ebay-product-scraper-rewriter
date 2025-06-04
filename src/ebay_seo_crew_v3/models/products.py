@@ -34,6 +34,12 @@ class SEOProductOutput(BaseModel):
     seo_keywords: List[str] = Field(
         ..., description="2–3 high-value keywords"
     )
+    seo_title: str = Field(
+        ..., description="SEO-optimized title for search engines"
+    )
+    seo_description: str = Field(
+        ..., description="SEO-optimized description for search engines"
+    )
     original_url: str = Field(
         ..., description="Canonical eBay product URL"
     )

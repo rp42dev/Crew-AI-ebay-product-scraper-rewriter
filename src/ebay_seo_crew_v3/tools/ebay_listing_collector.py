@@ -82,7 +82,7 @@ def get_listings_from_page(url: str, max_pages: int = 1):
         time.sleep(2 + (page * 0.5))  # Add delay to be polite
 
     print(f"\n✅ Total products found: {len(all_items)}")
-    return all_items[:2]
+    return all_items[:20]
 
 class EbayListingCollectorInput(BaseModel):
     query: str = Field(..., description="eBay search term or a full eBay URL.")

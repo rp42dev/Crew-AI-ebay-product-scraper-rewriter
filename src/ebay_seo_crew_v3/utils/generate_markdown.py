@@ -9,6 +9,8 @@ def product_to_markdown(product):
     key_specs = product.get("key_specs", [])
     specs = product.get("specs", {})
     keywords = product.get("seo_keywords", [])
+    meta_title = product.get("seo_title", "")
+    meta_description = product.get("seo_description", "")
     url = product.get("original_url", "#")
 
     md = []
@@ -32,6 +34,12 @@ def product_to_markdown(product):
         for k, v in specs.items():
             md.append(f"- **{k}**: {v}")
         md.append("")
+        
+    if meta_title:
+        md.append(f"**SEO Title:** {meta_title}\n")
+        
+    if meta_description:
+        md.append(f"**SEO Description:** {meta_description}\n")
 
     if keywords:
         md.append(f"**SEO Keywords:** {', '.join(keywords)}\n")
