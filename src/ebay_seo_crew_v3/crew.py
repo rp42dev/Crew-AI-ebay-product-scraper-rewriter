@@ -4,6 +4,7 @@ import warnings
 from crewai import Agent, Task, Crew
 from crewai.project import CrewBase, crew, agent, task
 from crewai.agents.agent_builder.base_agent import BaseAgent
+from models.products import SEOProductOutput
 
 from typing import List
 
@@ -32,6 +33,7 @@ class EbaySeoCrew:
         return Task(
             config=self.tasks_config["rewrite_seo_listings"],
             agent=self.seo_rewriter_agent(),
+            output_pydantic=SEOProductOutput,
         )
 
     @crew
@@ -39,7 +41,7 @@ class EbaySeoCrew:
         return Crew(
             agents=self.agents,
             tasks=self.tasks,
-            memory=True,
+            memory=False,
             verbose=True
         )
 

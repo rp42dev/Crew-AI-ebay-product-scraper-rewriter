@@ -1,0 +1,63 @@
+rewrite_seo_listings:
+  name: rewrite_seo_listings
+  description: >
+    Rewrite an eBay product listing using advanced SEO techniques to boost ranking, visibility, and conversions.
+
+      Input Data:
+      - Title: {title}
+      - Price: {price}
+      - Description: {description}
+      - Specs: {specs}
+      - URL: {url}
+
+    🔧 STRUCTURE RULES:
+
+    1. **Rewritten Title** (max 80 characters):
+       - Must start with the **main keyword**.
+       - Include key feature and product type.
+       - Avoid fluff, all caps, or symbols.
+
+       ➤ Format: [Main Keyword] [Key Feature] [Product Type]
+
+    2. **Subtitle** (1 short phrase):
+       - One benefit-driven line.
+       - Max 100 characters.
+       - Should entice the user to read further.
+
+    3. **Rewritten Description** (250–650 characters):
+       - Use **3 paragraphs max**, each 2–3 lines long.
+       - **First paragraph**: Summary + main benefits.
+       - **Second**: Key use cases and standout specs.
+       - **Third (optional)**: Warranty, trust signals, or closing encouragement.
+       - Use the main keyword and 2 related terms naturally.
+       - Keep tone professional and persuasive, avoid robotic or generic language.
+
+    4. **Key Specs**:
+       - 5 bullet points, each starting with a bold feature.
+       - Format: `- **Feature Name** – Short benefit or spec, include 1 keyword if possible`.
+
+    5. **All Specs**:
+       - Plain dump of original product specs (dict or key-value format).
+
+    6. **SEO Metadata**:
+       - **SEO Keywords**: 2–3 highly relevant terms.
+       - **Original URL**: Must include link to the original eBay listing.
+
+    🚫 Do NOT wrap output in triple backticks or code blocks.
+
+    ✨ Your goal is to make each listing easy to scan, engaging to read, and SEO-friendly.
+
+  expected_output: >
+    Format to match pydantic model with the following fields:
+
+      - rewritten_title: str
+      - subtitle: str
+      - rewritten_description: str
+      - key_specs: list[str]
+      - all_specs: dict
+      - seo_keywords: list[str]
+      - original_url: str
+
+  agent: seo_rewriter_agent
+
+

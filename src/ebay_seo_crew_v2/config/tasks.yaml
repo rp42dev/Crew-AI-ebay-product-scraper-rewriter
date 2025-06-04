@@ -85,3 +85,4 @@ rewrite_seo_listings:
 
   agent: seo_rewriter_agent
   markdown: true
+

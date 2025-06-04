@@ -88,9 +88,9 @@ class EbayListingCollectorTool(BaseTool):
             return json.dumps([])
         
         # Optional: Save locally
-        os.makedirs("output", exist_ok=True)
+        os.makedirs("src/ebay_seo_crew_v1/output", exist_ok=True)
         timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-        with open(f"output/store_items_{timestamp}.json", "w", encoding="utf-8") as f:
+        with open(f"src/ebay_seo_crew_v1/output/store_items_{timestamp}.json", "w", encoding="utf-8") as f:
             json.dump(listings, f, indent=2)
             
         print(f"✅ Saved {len(listings)} listings to output/store_items_{timestamp}.json")

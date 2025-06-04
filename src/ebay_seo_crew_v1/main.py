@@ -26,7 +26,7 @@ def main():
     df_usage_metrics
     print(f"\n{Fore.YELLOW}📊 Usage Metrics:\n{df_usage_metrics.to_string(index=False)}")
     
-    with open("output/seo_rewritten_listings.md", "r", encoding="utf-8") as f:
+    with open("src/ebay_seo_crew_v1/output/seo_rewritten_listings.md", "r", encoding="utf-8") as f:
         content = f.read().strip()
 
     markdown  = content.raw

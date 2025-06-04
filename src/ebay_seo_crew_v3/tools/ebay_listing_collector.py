@@ -82,7 +82,7 @@ def get_listings_from_page(url: str, max_pages: int = 1):
         time.sleep(2 + (page * 0.5))  # Add delay to be polite
 
     print(f"\n✅ Total products found: {len(all_items)}")
-    return all_items[:20]
+    return all_items[:2]
 
 class EbayListingCollectorInput(BaseModel):
     query: str = Field(..., description="eBay search term or a full eBay URL.")
@@ -98,9 +98,9 @@ class EbayListingCollectorTool(BaseTool):
         base_url = query if query.startswith("http") else f"https://www.ebay.com/sch/i.html?_nkw={query}"
         listings = get_listings_from_page(base_url, max_pages=3)
 
-        os.makedirs("output", exist_ok=True)
+        os.makedirs("src/ebay_seo_crew_v3/output", exist_ok=True)
         timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-        output_path = f"output/store_items_{timestamp}.json"
+        output_path = f"src/ebay_seo_crew_v3/output/store_items_{timestamp}.json"
 
         with open(output_path, "w", encoding="utf-8") as f:
             json.dump(listings, f, indent=2)
