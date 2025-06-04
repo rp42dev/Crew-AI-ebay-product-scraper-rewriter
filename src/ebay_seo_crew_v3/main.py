@@ -3,6 +3,8 @@
 from crewai.flow.flow import Flow, start, listen
 from tools.ebay_listing_collector import EbayListingCollectorTool
 from tools.product_scraper_tool import ProductScraperTool
+from utils.generate_sku import main as generate_sku_main
+from utils.generate_markdown import generate_markdown_files
 from datetime import datetime
 from crew import EbaySeoCrew
 from pydantic import BaseModel
@@ -81,8 +83,19 @@ class EbaySeoPipeline(Flow[State]):
         if self.state.success_flag:
             print(f"Total successful rewrites: {len([p for p in self.state.product_list if p.rewritten_title])}")
             print(f"Total failed rewrites: {len([p for p in self.state.product_list if not p.rewritten_title])}")
-            with open(f"src/ebay_seo_crew_v3/output/seo_rewritten_{datetime.now().strftime('%Y%m%d_%H%M%S')}.json", "w", encoding="utf-8") as f:
+            
+            path = f"src/ebay_seo_crew_v3/output/seo_rewritten_{datetime.now().strftime('%Y%m%d_%H%M%S')}.json"
+            os.makedirs(os.path.dirname(path), exist_ok=True)
+            with open(f"{path}", "w", encoding="utf-8") as f:
                 json.dump([p.dict() for p in self.state.product_list], f, indent=2, ensure_ascii=False)
+            
+            input_path = f"src/ebay_seo_crew_v3/output/seo_rewritten_{datetime.now().strftime('%Y%m%d_%H%M%S')}.json"
+            output_path = f"src/ebay_seo_crew_v3/output/products_with_sku_{datetime.now().strftime('%Y%m%d_%H%M%S')}.json"
+            
+            generate_sku_main(input_path, output_path)
+            
+            markdown_output_dir = "src/ebay_seo_crew_v3/output/markdown_products"
+            generate_markdown_files(output_path, markdown_output_dir)
 
             usage = crew.usage_metrics.dict()
             df_usage_metrics = pd.DataFrame([usage])
