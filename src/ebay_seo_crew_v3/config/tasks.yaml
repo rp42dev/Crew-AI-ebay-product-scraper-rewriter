@@ -1,64 +1,73 @@
 rewrite_seo_listings:
   name: rewrite_seo_listings
   description: >
-    Rewrite an eBay product listing using advanced SEO techniques to boost ranking, visibility, and conversions.
+    Rewrite an eBay product listing using advanced SEO techniques to improve ranking, visibility, and conversions, including support for unbranded or generic items.
 
-      Input Data:
+    🔹 **Input Data:**
       - Title: {title}
       - Price: {price}
       - Description: {description}
       - Specs: {specs}
       - URL: {url}
 
-    🔧 STRUCTURE RULES:
+    🔧 **STRUCTURE RULES & STRATEGY:**
 
-    1. **Rewritten Title** (max 80 characters):
-       - Must start with the **main keyword**.
-       - Include key feature and product type.
-       - Avoid fluff, all caps, or symbols.
+    1. **Rewritten Title** (max 80 characters or ~10-12 words):
+       - Start with **size or type** (for better CTR)
+       - Include key features (e.g., speed, compatibility, material)
+       - Add use case or user intent (e.g., "for office", "for travel")
+       - For generic products with no brand, omit brand or use "Generic"
+       - ➤ Format: [Size/Type] [Product] – [Key Features] – [Use Case]
 
-       ➤ Format: [Main Keyword] [Key Feature] [Product Type]
+    2. **Subtitle** (1 benefit-driven phrase, max 100 characters or ~15-20 words):
+       - Clear, functional, or emotional hook (e.g., "Designed for daily use & durability")
 
-    2. **Subtitle** (1 short phrase):
-       - One benefit-driven line.
-       - Max 100 characters.
-       - Should entice the user to read further.
-
-    3. **Rewritten Description** (The whole description Must be between 550–650 characters or 80 - 100 words):
-       - **First paragraph**: Summary + main benefits.
-       - **Second**: Key use cases and standout specs.
-       - **Third (optional)**: Warranty, trust signals, or closing encouragement.
-       - Use the main keyword and 2 related terms naturally.
-       - Keep tone professional and persuasive, avoid robotic or generic language.
-
-       ➤ Format: [summary + benefits] [use cases + specs] [warranty + trust signals]
+    3. **Rewritten Description** (STRICT 550–650 characters / ~80–100 words):
+       - **First paragraph**: Highlight main benefit and intended user
+       - **Second paragraph**: Use cases and specs, include 2–3 long-tail keywords
+       - **Optional third**: Trust signals, value, or call-to-action
+       - Maintain a human, persuasive tone even for generic products
+       ➤ Format: [Benefit Summary] [Use Cases + Specs] [Optional Trust/Closing Line]
 
     4. **Key Specs**:
-       - A list of 5 key specs, each starting with a bold feature.
-       - Focus on benefits and unique selling points.
-
-       ➤  Format: [Feature Name] – [Benefit/Description]
+       - 5 bullet points, each with a **bold feature name**
+       - Focus on benefits or compatibility, not just raw spec
+       - ➤ Format: [**Feature**] – [Benefit or Description]
 
     5. **All Specs**:
-       - Plain dump of original product specs (dict or key-value format).
+       - Output full spec list as a dictionary of key-value pairs
 
-    6. **SEO Keywords**: 2–3 highly relevant terms.
+    6. **SEO Keywords**:
+       - Include 2–3 relevant, long-tail terms
+       - Especially important for generic products (e.g., “wireless mouse for laptop”, “USB charger fast charge”)
 
-    7. **SEO Title**: 60 characters max, includes main keyword and key benefit.
-         - Should be engaging and click-worthy.
-         - Format: [Main Keyword] – [Key Feature] | Buy Now
+    7. **SEO Title** (max 60 characters):
+       - Include the **main keyword** and **key feature** early.
+       - Avoid promotional fluff (e.g., "Buy Now") unless platform requires it.
+       - Add **use case** or **audience** to improve CTR on search engines.
+       - Capitalize key terms for readability.
+       ➤ Format: [Main Keyword] – [Key Feature] for [Use Case or Audience]
 
-    8. **SEO Description**: must be between 150 - 160 characters, summarizes the product with main keyword and key benefit.
-         - Should be concise and compelling.
-         - Format: Shop [Product Name] with [Key Feature]. Fast shipping. Trusted seller.
+    8. **SEO Description** (STRICT 150–160 characters or ~20-25 words):
+       - Summarize the product clearly with keyword and benefit.
+       - Include the intended use or audience (e.g., for office, for teens).
+       - Add trust signal or soft call-to-action at the end.
+       - Keep tone natural and informative, not overly salesy.
+       ➤ Format: [Product Name] with [Key Feature] – ideal for [Use Case]. [Trust Signal or CTA]
 
-    9. **Original URL**: {url} Must include link to the original eBay listing.
+    9. **Original URL**:
+       - Must include {url}
 
-      🚫 Do NOT wrap output in triple backticks or code blocks.
-      🚫 Do NOT include any additional text, explanations, or comments.or symbols.
-      🚫 Follow exactly and strictly the format
+    🧠 **Pro Tip**:
+       - Use Product Schema (Name, Brand, SKU, Price, Availability) even if brand is "Generic"
+       - Highlight compatibility or use case when brand power is low
 
-    ✨ Your goal is to make each listing easy to scan, engaging to read, and SEO-friendly.
+    🚫 **Rules:**
+      - Do NOT include markdown or triple backticks
+      - Do NOT add any extra comments or symbols
+      - Follow the format strictly
+
+    ✅ Goal: Make listings clear, persuasive, and SEO-optimized for both branded and generic products.
 
   expected_output: >
     Format to match pydantic model with the following fields:
@@ -76,3 +85,88 @@ rewrite_seo_listings:
   agent: seo_rewriter_agent
 
 
+rewrite_seo_listings_bikes:
+  name: rewrite_seo_listings
+  description: >
+    Rewrite an eBay product listing using advanced SEO techniques to improve ranking, visibility, and conversions, based on strategic keyword use and persuasive formatting.
+
+    🔹 **Input Data:**
+      - Title: {title}
+      - Price: {price}
+      - Description: {description}
+      - Specs: {specs}
+      - URL: {url}
+
+    🔧 **STRUCTURE RULES & STRATEGY:**
+
+    1. **Rewritten Title** (max 80 characters or ~10-12 words):
+       - Start with **size and product type** (for better CTR)
+       - Include key features (e.g., speed, suspension, brake type)
+       - Add user intent where relevant (e.g., city, trail)
+       - Avoid symbols, fluff, or all caps
+       - ➤ Format: [Size] [Product Type] – [Key Features] – [Use Case/Intent]
+
+    2. **Subtitle** (1 benefit-driven phrase, max 100 characters or ~15-20 words):
+       - Clear, emotional or value-based hook to draw interest
+
+    3. **Rewritten Description** (STRICT 550–650 characters / ~80–100 words):
+       - **First paragraph**: Highlight the primary benefits and audience fit (e.g., ideal for teens/adults)
+       - **Second paragraph**: Key use cases, standout specs, long-tail keyword phrases
+       - **Optional third**: Warranty, trust signals, or brand promises
+       - Use **main keyword** + **2–3 long-tail related terms** naturally
+       - Maintain a persuasive, confident tone (human, not robotic)
+
+       ➤ Format: [Benefit Summary] [Use Cases + Specs] [Optional Trust/Closing Line]
+
+    4. **Key Specs**:
+       - 5 bullet points, each starting with a **bold feature name**
+       - Focus on value, benefit, or differentiator
+       - ➤ Format: [**Feature**] – [Benefit or Description]
+
+    5. **All Specs**:
+       - Output the full spec list as a dictionary of key-value pairs
+
+    6. **SEO Keywords**:
+       - Include 2–3 high-impact search terms relevant to the category
+       - Should include long-tail phrases such as:
+         - hybrid bike for adults
+         - 26-inch mountain bike
+         - front suspension commuter bike
+         - Shimano-style 21-speed bike
+         - urban and trail hybrid bike
+         - unisex bike with disc brakes
+
+    7. **SEO Title** (max 60 characters or ~8-10 words):
+       - Includes main keyword + compelling feature
+       - ➤ Format: [Main Keyword] – [Key Feature] | Buy Now
+
+    8. **SEO Description** (STRICT 150–160 characters or ~20-25 words):
+       - Highlight product with keyword + benefit
+       - ➤ Format: Shop [Product Name] with [Key Feature]. Fast shipping. Trusted seller.
+
+    9. **Original URL**:
+       - Must include {url} (the original eBay listing link)
+
+    🧠 **Pro Tip**: Use product schema (Name, Brand, SKU, Price, Availability, Reviews) on listing pages to improve visibility in Google rich snippets.
+
+    🚫 **Rules:**
+      - Do NOT include markdown or triple backticks
+      - Do NOT add any extra comments, symbols, or explanations
+      - Follow the format precisely and consistently
+
+    ✅ Goal: Create listings that are clear, scan-friendly, persuasive, and highly optimized for SEO and conversions.
+
+  expected_output: >
+    Format to match pydantic model with the following fields:
+
+      - rewritten_title: str
+      - subtitle: str
+      - rewritten_description: str
+      - key_specs: list[str]
+      - all_specs: dict
+      - seo_keywords: list[str]
+      - seo_title: str
+      - seo_description: str
+      - original_url: str
+
+  agent: seo_rewriter_agent

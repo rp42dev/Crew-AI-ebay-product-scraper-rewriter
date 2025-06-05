@@ -1,4 +1,6 @@
-# 24-Inch Mountain Bike Disc Brakes Front Suspension Off-Road Bicycle
+# 24-Inch Mountain Bike Disc Brakes Front Suspension Off-Road 
+Bicycle
+
 
 ### Conquer terrains with durable performance and smooth handling
 
