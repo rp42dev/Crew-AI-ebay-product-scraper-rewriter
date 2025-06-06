@@ -22,29 +22,20 @@ def normalize_url(url: str) -> str:
     return url.split('?')[0]
 
 
-def is_captcha_page(html: str) -> bool:
-    return "captcha" in html.lower() or "PageId: 2551517" in html
-
-def get_listings_from_page(url: str, max_pages: int = 1):
+def get_listings_from_page(url: str, max_pages: int = 1, limit: int = 2):
     all_items = []
     seen_urls = set()
 
     for page in range(1, max_pages + 1):
+        if len(all_items) >= limit:
+            break
+
         paged_url = f"{url}&_pgn={page}"
         print(f"🔍 Scraping page {page}: {paged_url}")
 
         try:
             response = requests.get(paged_url, headers=HEADERS)
             response.raise_for_status()
-
-            if is_captcha_page(response.text):
-                print(style_text("🛑 CAPTCHA detected. Scraping aborted.\n", color="red", bold=True))
-                print(style_text("⚠️ Try using a keyword instead of a storefront page, like:\n", color="yellow"))
-                print(style_text("    python main.py\n    > bike\n", color="cyan"))
-                print(style_text("✅ Or use a direct store *listing* URL (not the /str/ page), e.g.:\n", color="yellow"))
-                print(style_text("    https://www.ebay.co.uk/sch/i.html?...&store_name=yourstore", color="cyan"))
-                break
-
         except requests.RequestException as e:
             print(f"❌ Request failed: {e}")
             continue
@@ -52,19 +43,10 @@ def get_listings_from_page(url: str, max_pages: int = 1):
         soup = BeautifulSoup(response.text, "html.parser")
         cards = soup.select(".s-item")
 
-        if not cards:
-            print("⚠️ No product cards found.")
-            break
-
-        first_link = cards[0].select_one(".s-item__link")
-        if first_link:
-            first_url = normalize_url(first_link["href"])
-            if first_url in seen_urls:
-                print("🔁 Duplicate page detected. Stopping.")
-                break
-            seen_urls.add(first_url)
-
         for card in cards:
+            if len(all_items) >= limit:
+                break
+
             title_tag = card.select_one(".s-item__title")
             price_tag = card.select_one(".s-item__price")
             link_tag = card.select_one(".s-item__link")
@@ -79,13 +61,15 @@ def get_listings_from_page(url: str, max_pages: int = 1):
                         "url": clean_url
                     })
 
-        time.sleep(2 + (page * 0.5))  # Add delay to be polite
+        time.sleep(1)
 
-    print(f"\n✅ Total products found: {len(all_items)}")
-    return all_items[:20]
+    return all_items
+
 
 class EbayListingCollectorInput(BaseModel):
     query: str = Field(..., description="eBay search term or a full eBay URL.")
+    limit: int = Field(20, description="Maximum number of product listings to collect (default is 20)")
+
 
 class EbayListingCollectorTool(BaseTool):
     name: str = "ebay_listing_collector"
@@ -94,9 +78,9 @@ class EbayListingCollectorTool(BaseTool):
     )
     args_schema: Type[BaseModel] = EbayListingCollectorInput
 
-    def _run(self, query: str) -> str:
+    def _run(self, query: str, limit: int = 2) -> str:
         base_url = query if query.startswith("http") else f"https://www.ebay.com/sch/i.html?_nkw={query}"
-        listings = get_listings_from_page(base_url, max_pages=3)
+        listings = get_listings_from_page(base_url, max_pages=3, limit=limit)
 
         os.makedirs("src/ebay_seo_crew_v3/output", exist_ok=True)
         timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
