@@ -111,7 +111,7 @@ Version 3 is fully optimized for speed, clarity, and minimal LLM usage. Here's h
 ---
 
 ## 📊 Token Usage Summary
-- ✅ 17 listings rewritten: **~$0.0056 total**
+- ✅ 17 listings rewritten: **~$0.0056 total** using `gpt-4.1-nano` or `gpt-4.0-mini`
 - ✅ Markdown output, minimal cost, and strong structure
 
 ---
