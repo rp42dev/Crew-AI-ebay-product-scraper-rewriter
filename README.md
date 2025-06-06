@@ -41,9 +41,10 @@ Version 3 is fully optimized for speed, clarity, and minimal LLM usage. Here's h
 - Accepts either:
   - eBay **keyword search**
   - Full **storefront URL**
-- Resolves the “See All” link if store URL is provided
-- Scrapes up to **20 product URLs**
-- Saves: `store_items_<timestamp>.json`
+- If a storefront URL is given, it automatically resolves the **“See All”** link to avoid CAPTCHA and ensure proper scraping.
+- Uses a polite scraping delay to reduce bot detection risk.
+- Scrapes up to **20 product URLs by default** (adjustable via `return all_items[:20]` in `tools/ebay_listing_collector.py`)
+- Saves raw listing metadata to: `store_items_<timestamp>.json`
 
 ---
 
