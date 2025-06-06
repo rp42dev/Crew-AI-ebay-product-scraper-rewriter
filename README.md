@@ -72,10 +72,12 @@ Version 3 is fully optimized for speed, clarity, and minimal LLM usage. Here's h
 - Fields include:
   - `rewritten_title` (max 80 chars)
   - `subtitle` (max 100 chars)
-  - `rewritten_description` (250–650 chars, 3 paragraphs)
+  - `rewritten_description` (550–650 characters, 3 paragraphs)
   - `key_specs` (exactly 5 bullet points)
   - `specs` (from original)
   - `seo_keywords` (2–3 terms)
+  - `Meta Title` (max 60 chars)
+  - `Meta Description` (max 160 chars)
   - `original_url`
 - Saves: `rewritten_products_<timestamp>.json`
 
