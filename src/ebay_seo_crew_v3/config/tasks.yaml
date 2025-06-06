@@ -41,7 +41,7 @@ rewrite_seo_listings:
        - Include 2–3 relevant, long-tail terms
        - Especially important for generic products (e.g., “wireless mouse for laptop”, “USB charger fast charge”)
 
-    7. **SEO Title** (max 60 characters):
+    7. **SEO Title** (STRICT 60–70 characters or ~6-8 words):
        - Include the **main keyword** and **key feature** early.
        - Avoid promotional fluff (e.g., "Buy Now") unless platform requires it.
        - Add **use case** or **audience** to improve CTR on search engines.
@@ -136,13 +136,19 @@ rewrite_seo_listings_bikes:
          - urban and trail hybrid bike
          - unisex bike with disc brakes
 
-    7. **SEO Title** (max 60 characters or ~8-10 words):
-       - Includes main keyword + compelling feature
-       - ➤ Format: [Main Keyword] – [Key Feature] | Buy Now
+    7. **SEO Title** (STRICT 60 characters or 6–8 words):
+       - Include the **main keyword** and **key feature** early.
+       - Avoid promotional fluff (e.g., "Buy Now") unless platform requires it.
+       - Add **use case** or **audience** to improve CTR on search engines.
+       - Capitalize key terms for readability.
+       ➤ Format: [Main Keyword] – [Key Feature] for [Use Case or Audience]
 
     8. **SEO Description** (STRICT 150–160 characters or ~20-25 words):
-       - Highlight product with keyword + benefit
-       - ➤ Format: Shop [Product Name] with [Key Feature]. Fast shipping. Trusted seller.
+       - Summarize the product clearly with keyword and benefit.
+       - Include the intended use or audience (e.g., for office, for teens).
+       - Add trust signal or soft call-to-action at the end.
+       - Keep tone natural and informative, not overly salesy.
+       ➤ Format: [Product Name] with [Key Feature] – ideal for [Use Case]. [Trust Signal or CTA]
 
     9. **Original URL**:
        - Must include {url} (the original eBay listing link)
