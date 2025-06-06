@@ -35,7 +35,7 @@ pip install -r requirements.txt
 
 Version 3 is fully optimized for speed, clarity, and minimal LLM usage. Here's how it works:
 
-![Pipeline Overview](src\flow.png)
+![Pipeline Overview](src/flow.png)
 ---
 
 ### 🧩 Stage 1 – URL Collection
