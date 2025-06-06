@@ -31,82 +31,86 @@ pip install -r requirements.txt
 ```
 ---
 
-## 🔁 Pipeline Overview
+## 🔁 Pipeline Overview (v3)
 
-This is the step-by-step process for version 3:
-
-### 🧩 Stage 1 – URL Collection
-
-- Accepts an **eBay keyword** or full **store URL**
-- Resolves store “See All” link
-- Scrapes up to **product listing URLs** from eBay
-
-### 🧪 Stage 2 – Product Detail Scraping
-
-- For each URL:
-  - Visits the product page
-  - Extracts key details: `title`, `price`, `description`, `specs`, and `URL`
-- Saves structured output using a `Pydantic` model (`SEOProductInput`). Output JSON saved as `store_items_<timestamp>.json`.
-
-### ✍️ Stage 3 – AI-Powered SEO Rewriting
-
-- One product at a time is passed to the SEO rewriting agent
-- Output conforms to strict `Pydantic` schema (`SEOProductOutput`). Output JSON saved as `detailed_listings_<timestamp>.json`.
-
-### 💾 Stage 4 – Output
-
-- ✅ Saves all rewritten products to a single
-- **`rewritten_products<timestamp>.json`** file
-- ✅ Generates a SKU for each product based on:
-  - **Category** (e.g., `BIK` for bikes, `HLM` for helmets)
-  - **Size** (e.g., `24IN`, `700C`)
-  - **Department** (e.g., `UK` for Kids, `MA` for
-- ✅ Also generates individual `.md` files for each product with:
-    - Title (max 80 chars): starts with primary keyword ()
-    - Subtitle (max 120 chars): 1-line benefit
-    - SKU 
-    - Price
-    - Description (250–650) chars, 3 short paragraphs
-    - Key Specs (Exactly 5)
-    - Spec (all original specs from eBay)
-    - Meta Title (max 60 chars): starts with primary keyword
-    - Meta Keywords (2–3 high-value terms)
-    - Meta Description (max 160 chars): starts with primary keyword
-    - Original URL
-- ✅ Token usage and cost summary included
+Version 3 is fully optimized for speed, clarity, and minimal LLM usage. Here's how it works:
 
 ---
 
-🔍 Total Control  
-✅ Fully structured. ✅ Easy to scale. ✅ Markdown-ready. ✅ Minimal LLM cost.
+### 🧩 Stage 1 – URL Collection
+- Accepts either:
+  - eBay **keyword search**
+  - Full **storefront URL**
+- Resolves the “See All” link if store URL is provided
+- Scrapes up to **20 product URLs**
+- Saves: `store_items_<timestamp>.json`
 
+---
 
+### 🧪 Stage 2 – Product Detail Scraping
+- Visits each product page
+- Extracts key details:
+  - `title`
+  - `price`
+  - `description`
+  - `specs`
+  - `url`
+- Structured using `SEOProductInput` Pydantic model
+- Saves: `detailed_listings_<timestamp>.json`
+
+---
+
+### ✍️ Stage 3 – AI SEO Rewriting
+- Each product passed individually to a **single-agent Crew**
+- Uses structured prompt + strict validation (`SEOProductOutput`)
+- Fields include:
+  - `rewritten_title` (max 80 chars)
+  - `subtitle` (max 100 chars)
+  - `rewritten_description` (250–650 chars, 3 paragraphs)
+  - `key_specs` (exactly 5 bullet points)
+  - `specs` (from original)
+  - `seo_keywords` (2–3 terms)
+  - `original_url`
+- Saves: `rewritten_products_<timestamp>.json`
+
+---
+
+### 💾 Stage 4 – Output & Markdown Generation
+- ✅ Individual `.md` file per product:
+  - SEO title, subtitle
+  - Price, description, key specs
+  - Full specs, meta title/description/keywords
+  - SKU and original URL
+- ✅ Final JSONs:
+  - `products_with_skus_<timestamp>.json`  
+  - All files Markdown-ready and reusable
+
+---
+
+## 🧠 SKU Logic Summary
+- Format: `CAT-SIZE-DEP-NAMECODE-RAND4`
+  - **CAT**: Category (`BIK`, `HLM`, `SCT`)
+  - **SIZE**: From wheel size/model (e.g., `24IN`, `700C`)
+  - **DEP**: Department (`UK`, `MA`, `FA`, `UN`)
+  - **NAMECODE**: Abbreviated from title
+  - **RAND4**: Unique 4-char suffix
+
+🧪 Example:  
+`BIK-24IN-UK-24MOU-87A3`  
+🛒 Title: `24-Inch Mountain Bike with Suspension and Disc Brakes`
+
+---
+
+## 📊 Token Usage Summary
+- ✅ 17 listings rewritten: **~$0.0056 total**
+- ✅ Markdown output, minimal cost, and strong structure
+
+---
+
+### ✅ To Run
 ```bash
 python src/ebay_seo_crew_v3/main.py
 ```
-
-### ✅ You’ll Get:
-
-- **`store_items_<timestamp>.json`** – Raw scraped product data
-- **`detailed_listings_<timestamp>.json`** – SEO-rewritten product details
-- **`rewritten_products_<timestamp>.json`** – Final enriched product data.
-- **`products_with_skus_<timestamp>.json`** – Products with generated SKUs
-- **`<productSKU>.md`** – Ready-to-paste Markdown for listings, content pages, or storefronts
-
----
-
-### 🧠 SKU Logic Summary
-
-- `BIK`, `HLM`, `SCT`, etc. → Based on keywords like **bike**, **helmet**, **scooter**, etc.  
-- **Wheel Size**, **Size**, or **Model** → Used for segment 2 (e.g., `24IN`, `700C`)  
-- `UK`, `MA`, `FA`, `UN` → Department codes for **Kids**, **Men**, **Women**, or **Unisex**  
-- Short token from title + random 4-character suffix for uniqueness
-
-#### 🧪 Example Output:
-**Example SKU:** `BIK-24IN-UK-24MOU-87A3`  
-**Product Title:** *24-Inch Mountain Bike with Suspension and Disc Brakes*
-
-
 
 ## 📄 License
 This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.	
